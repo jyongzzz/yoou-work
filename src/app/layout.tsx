@@ -15,6 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // [Config] 메뉴 구조 정의 (유지보수성을 위해 배열로 관리)
+  const navItems = [
+    { name: 'ABOUT', path: '/about' },
+    { name: 'PROJECTS', path: '/projects' }, // 기존 WORK -> PROJECTS
+    { name: 'PLAYGROUND', path: '/playground' }, // 신규 추가
+    { name: 'CONTACT', path: '/contact' },
+  ];
+
   return (
     <html lang="en">
       <body className={`${inter.className} bg-[#F9F9F8] text-[#1A1A1A] overflow-x-hidden`}>
@@ -35,13 +43,13 @@ export default function RootLayout({
 
           {/* Menu */}
           <nav className="flex flex-col gap-6 mt-8 md:mt-0">
-            {['ABOUT', 'WORK', 'POST', 'CONTACT'].map((item) => (
+            {navItems.map((item) => (
               <Link 
-                key={item} 
-                href={item === 'WORK' ? '/work' : '#'} 
+                key={item.name} 
+                href={item.path} 
                 className="text-sm font-medium hover:translate-x-2 transition-transform duration-300 ease-out uppercase tracking-widest"
               >
-                {item}
+                {item.name}
               </Link>
             ))}
           </nav>
