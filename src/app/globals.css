@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  /* [Back to Clean] 다시 원래의 차분한 화이트 톤으로 복귀 */
   --background: #F9F9F8;
   --foreground: #1A1A1A;
 }
@@ -10,6 +11,6 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  /* 텍스트 렌더링을 날카롭게 */
+  /* 폰트 스무딩 유지 */
   -webkit-font-smoothing: antialiased;
 }

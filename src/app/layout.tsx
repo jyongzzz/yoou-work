@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter } from "next/font/google"; // [Reset] 다시 깔끔한 폰트로
 import "./globals.css";
 import Link from "next/link";
 
@@ -15,19 +15,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // [Config] 메뉴 구조 정의 (유지보수성을 위해 배열로 관리)
   const navItems = [
     { name: 'ABOUT', path: '/about' },
-    { name: 'PROJECTS', path: '/projects' }, // 기존 WORK -> PROJECTS
-    { name: 'PLAYGROUND', path: '/playground' }, // 신규 추가
+    { name: 'PROJECTS', path: '/projects' },
+    { name: 'PLAYGROUND', path: '/playground' },
     { name: 'CONTACT', path: '/contact' },
   ];
 
   return (
     <html lang="en">
+      {/* [Reset] 배경색과 텍스트 색상 원상복구 */}
       <body className={`${inter.className} bg-[#F9F9F8] text-[#1A1A1A] overflow-x-hidden`}>
         
-        {/* [Sidebar] Desktop: Fixed Left / Mobile: Static Top */}
+        {/* [Sidebar] 다시 하얀색 배경과 연한 회색 테두리로 */}
         <aside className="w-full md:w-64 p-6 md:fixed md:h-screen flex flex-col justify-between z-50 bg-[#F9F9F8] border-b md:border-b-0 md:border-r border-gray-200">
           
           {/* Logo */}
@@ -54,14 +54,14 @@ export default function RootLayout({
             ))}
           </nav>
 
-          {/* Footer (Desktop Only) */}
+          {/* Footer */}
           <div className="hidden md:block text-[10px] text-gray-300 font-mono">
             <p>POWERED BY RTX 5090</p>
             <p className="mt-1">© 2025</p>
           </div>
         </aside>
 
-        {/* [Main Content] Sidebar 너비(md:pl-64)만큼 밀어서 렌더링 */}
+        {/* [Main Content] */}
         <main className="w-full min-h-screen md:pl-64">
           <div className="p-6 md:p-20 w-full h-full">
             {children}

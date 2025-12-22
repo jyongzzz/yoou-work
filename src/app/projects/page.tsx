@@ -1,34 +1,50 @@
 'use client';
 import { Canvas } from '@react-three/fiber';
-import DistortedImage from '@/components/DistortedImage';
-import { Suspense } from 'react';
+import GlitchImage from '@/components/GlitchImage';
+import { Suspense, useState } from 'react';
 
+// [Data] 프로젝트별 태그(tag) 추가
 const projects = [
-  { id: 1, title: "GEN AI 01", img: "/img1.png" }, // 파일명 확인
-  { id: 2, title: "WEBGL 02", img: "/img2.png" },
-  { id: 3, title: "INTERACTION", img: "/img3.png" },
+  { id: 1, title: "GEN AI 01", img: "/img1.png", tag: "Generative AI" },
+  { id: 2, title: "WEBGL 02", img: "/img2.png", tag: "WebGL + Three.js" },
+  { id: 3, title: "INTERACTION", img: "/img3.png", tag: "Interaction" },
 ];
 
 export default function ProjectsPage() {
+  // [State] 어떤 프로젝트가 호버 중인지 추적 (ID 저장)
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
+
   return (
-    <div className="min-h-screen p-8 md:p-20">
+    <div className="min-h-screen p-8 md:p-20 bg-[#F9F9F8] text-[#1A1A1A]">
       <h1 className="text-6xl font-light mb-16 tracking-tighter">SELECTED PROJECTS</h1>
       
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         {projects.map((project) => (
-          <div key={project.id} className="flex flex-col gap-4 group">
+          <div 
+            key={project.id} 
+            className="flex flex-col gap-4 group cursor-pointer"
+            // [Event] 썸네일 박스 전체에서 호버 감지
+            onMouseEnter={() => setHoveredId(project.id)}
+            onMouseLeave={() => setHoveredId(null)}
+          >
             
             {/* 3D Canvas Area */}
-            <div className="relative h-[400px] w-full bg-gray-200 overflow-hidden">
+            {/* [Design] bg-black 제거 -> 항상 bg-gray-200 유지 */}
+            <div className="relative h-[400px] w-full bg-gray-200 overflow-hidden transition-colors duration-300">
               <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
                 <Suspense fallback={null}>
-                  <DistortedImage imgSrc={project.img} />
+                  {/* [Props] 내가 호버 중이면 true를 전달 */}
+                  <GlitchImage 
+                    imgSrc={project.img} 
+                    isHovered={hoveredId === project.id} 
+                  />
                 </Suspense>
               </Canvas>
               
-              <div className="absolute top-4 right-4 text-xs font-mono bg-white/80 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                WebGL
+              {/* Overlay Text - 프로젝트별 태그 표시 */}
+              <div className={`absolute top-4 right-4 text-xs font-mono bg-white text-black px-2 py-1 transition-opacity duration-300 ${hoveredId === project.id ? 'opacity-100' : 'opacity-0'}`}>
+                 {project.tag.toUpperCase()}
               </div>
             </div>
 
