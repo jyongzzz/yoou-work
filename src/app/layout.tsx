@@ -19,6 +19,7 @@ export default function RootLayout({
     { name: 'ABOUT', path: '/about' },
     { name: 'PROJECTS', path: '/projects' },
     { name: 'PLAYGROUND', path: '/playground' },
+    { name: 'THOUGHTS', path: '/thoughts' }, // [Add] 이 줄만 추가하세요!
     { name: 'CONTACT', path: '/contact' },
   ];
 
